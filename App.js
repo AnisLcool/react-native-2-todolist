@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView
 import Flexbox from './Flexbox';
 import { Entypo } from '@expo/vector-icons';
 import Task from './components/Task';
+import { useState } from 'react';
 
 // export default function App() {
 //   return (
@@ -23,6 +24,20 @@ import Task from './components/Task';
 
 
 export default function App() {
+  const [taskValue, setTaskValue] = useState('');
+
+  // pour le onChange
+  // const onChangeHandler = (event) => {
+
+  //   setTaskValue(event.target.value);
+  // }
+  // pour le onChangeText
+  const onChangeHandler = (text) => {
+
+    setTaskValue(text);
+  }
+
+  console.log('dans le return taskValue : ', taskValue);
   return (
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
@@ -30,18 +45,19 @@ export default function App() {
         {/* liste des tasks */}
         <ScrollView>
           <Task text='Finir le cours' />
-          <Task text='Manger'/>
-          <Task text='Dormir'/>
-          <Task text='Etudier'/>
-          <Task text='Faire du sport'/>
-          <Task text='Regarder youtube'/>
-         
+          <Task text='Manger' />
+          <Task text='Dormir' />
+          <Task text='Etudier' />
+          <Task text='Faire du sport' />
+          <Task text='Regarder youtube' />
+
         </ScrollView>
       </View>
 
       <View style={styles.addTaskWrapper}>
         {/* input  */}
-        <TextInput style={styles.textInput} placeholder='write a task...' />
+        {/* <TextInput value={taskValue} style={styles.textInput} placeholder='write a task...' onChange={onChangeHandler}/> */}
+        <TextInput value={taskValue} style={styles.textInput} placeholder='write a task...' onChangeText={onChangeHandler} />
         {/* button */}
         {/* 2types de bouton : Button , TouchableOpacity */}
         {/* <Button title='CLICK' color='red'/> */}
@@ -58,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#E8EAED',
     flex: 1,
-    justifyContent:'space-between'
+    justifyContent: 'space-between'
   },
   sectionTitle: {
     fontSize: 24,
@@ -110,3 +126,33 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
   }
 })
+
+
+// ============= EXPLICATION ============
+// const App = () => {
+//   // let count = 0;
+//   const [count, setCount]= useState(0); // hook
+//   const onClickHandler = () => {
+//     // 1ere façon
+//     setCount(count + 1)
+//     // 2eme façon
+//     // setCount(prevCount => prevCount + 1);
+//     // 3eme
+//     // const newCount = count + 1;
+//     // setCount(newCount); 
+//   }
+//   return (
+//     <View style={styles.container}>
+//       <Button title={`Clique sur moi ${count}`} onPress={onClickHandler}/>
+//     </View>
+//   )
+// }
+
+// export default App
+
+// const styles = StyleSheet.create({
+//   container:{
+//     justifyContent:'center',
+//     alignItems:'center'
+//   }
+// })
