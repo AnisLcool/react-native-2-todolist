@@ -25,6 +25,7 @@ import { useState } from 'react';
 
 export default function App() {
   const [taskValue, setTaskValue] = useState('');
+  const [taskList, setTaskList] = useState([])
 
   // pour le onChange
   // const onChangeHandler = (event) => {
@@ -33,23 +34,38 @@ export default function App() {
   // }
   // pour le onChangeText
   const onChangeHandler = (text) => {
-
+    
     setTaskValue(text);
   }
 
-  console.log('dans le return taskValue : ', taskValue);
+  const onPressHandler = () => {
+    
+    // solution 1
+    setTaskList([...taskList, taskValue]);
+    setTaskValue('');
+
+
+    //  solution 2
+    // setTaskList(taskList.concat(taskValue));
+    // setTaskValue('');
+  }
+  // taskList['salut', 'bonjour']
+  // taskListJsx[<Task text='salut' />, <Task text='bonjour' />]
+
+  const taskListJsx = taskList.map((value, index) => {
+    return <Task key={`task${index}`} text={value} />
+  })
+
+  // filter, splice, slice
+
   return (
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
         <Text style={styles.sectionTitle}>Today's tasks</Text>
         {/* liste des tasks */}
         <ScrollView>
-          <Task text='Finir le cours' />
-          <Task text='Manger' />
-          <Task text='Dormir' />
-          <Task text='Etudier' />
-          <Task text='Faire du sport' />
-          <Task text='Regarder youtube' />
+          
+          {taskListJsx}
 
         </ScrollView>
       </View>
@@ -61,7 +77,7 @@ export default function App() {
         {/* button */}
         {/* 2types de bouton : Button , TouchableOpacity */}
         {/* <Button title='CLICK' color='red'/> */}
-        <TouchableOpacity style={styles.btnAdd}>
+        <TouchableOpacity style={styles.btnAdd} onPress={onPressHandler}>
           <Entypo name='plus' size={30} color='#ccc' />
         </TouchableOpacity>
       </View>
