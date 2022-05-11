@@ -25,7 +25,21 @@ import { useState } from 'react';
 
 export default function App() {
   const [taskValue, setTaskValue] = useState('');
-  const [taskList, setTaskList] = useState([])
+  const [taskList, setTaskList] = useState([]);
+
+  const onDeleteHandler = (index) => {
+    // const tab = ['salut','bonjour','bonsoir']
+    // const tab_filtree = tab.filter(value => value !== 'bonjour');
+    // const tab_filtree = tab.filter((value, index) => index !== 1 );
+
+
+
+    // 1ere solution 👍
+    setTaskList(taskList.filter((val, idx) => index !== idx))
+    // 2eme solution 👍 
+    // const taskListFiltree = taskList.filter((val, idx) => index !== idx);
+    // setTaskList(taskListFiltree)
+  }
 
   // pour le onChange
   // const onChangeHandler = (event) => {
@@ -34,12 +48,12 @@ export default function App() {
   // }
   // pour le onChangeText
   const onChangeHandler = (text) => {
-    
+
     setTaskValue(text);
   }
 
   const onPressHandler = () => {
-    
+
     // solution 1
     setTaskList([...taskList, taskValue]);
     setTaskValue('');
@@ -53,7 +67,7 @@ export default function App() {
   // taskListJsx[<Task text='salut' />, <Task text='bonjour' />]
 
   const taskListJsx = taskList.map((value, index) => {
-    return <Task key={`task${index}`} text={value} />
+    return <Task key={`task${index}`} text={value} onDelete={onDeleteHandler} index={index} />
   })
 
   // filter, splice, slice
@@ -64,7 +78,7 @@ export default function App() {
         <Text style={styles.sectionTitle}>Today's tasks</Text>
         {/* liste des tasks */}
         <ScrollView>
-          
+
           {taskListJsx}
 
         </ScrollView>
