@@ -52,11 +52,16 @@ export default function App() {
     setTaskValue(text);
   }
 
+
+
   const onPressHandler = () => {
 
     // solution 1
-    setTaskList([...taskList, taskValue]);
-    setTaskValue('');
+    if (taskValue.trim() !== '') {
+
+      setTaskList([...taskList, taskValue.trim()]);
+      setTaskValue('');
+    }
 
 
     //  solution 2
